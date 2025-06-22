@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>ToDoリストアプリ</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body { font-family: sans-serif; margin: 2em; }
+    #todo-list { list-style: none; padding: 0; }
+    #todo-list li { padding: 0.5em 0; border-bottom: 1px solid #eee; }
+    .done { text-decoration: line-through; color: #888; }
+    button { margin-left: 0.5em; }
+  </style>
+</head>
+<body>
+  <h1>ToDoリスト</h1>
+  <form id="todo-form">
+    <input type="text" id="todo-input" placeholder="新しいタスクを入力" required>
+    <button type="submit">追加</button>
+  </form>
+  <ul id="todo-list"></ul>
+  <script>
+    // 簡単なToDoリストの動作例
+    const form = document.getElementById('todo-form');
+    const input = document.getElementById('todo-input');
+    const list = document.getElementById('todo-list');
+
+    form.addEventListener('submit', function(e) {
+      e.preventDefault();
+      const text = input.value.trim();
+      if (!text) return;
+      const li = document.createElement('li');
+      li.textContent = text;
+      const doneBtn = document.createElement('button');
+      doneBtn.textContent = '完了';
+      doneBtn.onclick = () => {
+        li.classList.toggle('done');
+      };
+      const delBtn = document.createElement('button');
+      delBtn.textContent = '削除';
+      delBtn.onclick = () => {
+        list.removeChild(li);
+      };
+      li.appendChild(doneBtn);
+      li.appendChild(delBtn);
+      list.appendChild(li);
+      input.value = '';
+    });
+  </script>
+</body>
+</html>
+
